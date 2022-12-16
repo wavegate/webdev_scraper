@@ -17,10 +17,15 @@ function App() {
       {data &&
         data.data.map((result: any) => {
           return (
-            <div>
-              <a href={result.jobLink}>{result.jobTitle}</a>
-              <div>{result.companyName}</div>
-              <div>{result.companyLocation}</div>
+            <div style={{ marginTop: "30px", padding: "30px" }}>
+              <a href={result.jobLink} style={{ color: "blue" }}>
+                {result.jobLink}
+              </a>
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: result.jobDescription.replace(/\n/g, "<br/>"),
+                }}
+              ></div>
             </div>
           );
         })}
