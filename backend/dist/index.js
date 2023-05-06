@@ -12,7 +12,7 @@ app.use((0, cors_1.default)());
 app.use(express_1.default.json());
 app.use((0, cookie_parser_1.default)());
 app.get("/data", (req, res) => {
-    const data = JSON.parse(fs_1.default.readFileSync("dist/utils/cut.json", { encoding: "utf-8" }));
+    const data = JSON.parse(fs_1.default.readFileSync("dist/utils/specifics2.json", { encoding: "utf-8" }));
     return res.json({ data: data });
 });
 exports.default = app;

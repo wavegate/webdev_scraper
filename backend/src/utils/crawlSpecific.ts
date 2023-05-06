@@ -2,8 +2,8 @@ import puppeteer from "puppeteer";
 
 import fs from "fs";
 
-const inFile = "db.json";
-const outFile = "specifics.json";
+const inFile = "db2.json";
+const outFile = "specifics2.json";
 let jsonData: any[] = [];
 let data: { [key: string]: string }[] | null = null;
 if (fs.existsSync(inFile)) {
@@ -14,8 +14,6 @@ if (!fs.existsSync(outFile)) {
   fs.writeFileSync(outFile, JSON.stringify(jsonData), { encoding: "utf-8" });
 }
 
-// console.log(data);
-
 async function getData() {
   try {
     const browser = await puppeteer.launch({ headless: false });
@@ -23,7 +21,7 @@ async function getData() {
     await page.setUserAgent(
       "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.75 Safari/537.36"
     );
-    for (let i = 424; i < data!.length; i++) {
+    for (let i = 859; i < data!.length; i++) {
       const link = data![i].jobLink;
       await page.goto(link);
 
@@ -35,7 +33,6 @@ async function getData() {
             return descriptionElement.textContent;
           }
         );
-        console.log("INDEX: " + i);
         jsonData = JSON.parse(fs.readFileSync(outFile, { encoding: "utf-8" }));
         const appendedData = [
           ...jsonData,
@@ -44,7 +41,9 @@ async function getData() {
         fs.writeFileSync(outFile, JSON.stringify(appendedData), {
           encoding: "utf-8",
         });
+        console.log("INDEX: " + i);
       } catch (error) {
+        console.log(error);
         continue;
       }
     }

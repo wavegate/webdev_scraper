@@ -2,7 +2,7 @@ import puppeteer from "puppeteer";
 
 import fs from "fs";
 
-const jsonFile = "db.json";
+const jsonFile = "db2.json";
 let jsonData: any[] = [];
 if (!fs.existsSync(jsonFile)) {
   fs.writeFileSync(jsonFile, JSON.stringify(jsonData), { encoding: "utf-8" });
@@ -24,7 +24,11 @@ async function getVisual() {
   await page.waitForSelector("#text-input-what");
   await page.type("#text-input-what", "Web developer");
   await page.keyboard.press("Escape");
-  await page.click(".yosegi-InlineWhatWhere-primaryButton");
+  const input = await page.$("#text-input-where");
+  await input?.click({ clickCount: 3 });
+  await page.type("#text-input-where", "Cupertino, CA");
+  await page.keyboard.press("Enter");
+  // await page.click(".yosegi-InlineWhatWhere-primaryButton");
 
   let counter = 0;
 
@@ -79,9 +83,9 @@ async function getVisual() {
     });
   }
 
-  //   await nextPageLink?.click({ delay: 5000 });
+  // await nextPageLink?.click({ delay: 5000 });
 
-  //   console.log(results);
+  // console.log(results);
 
   // while (true) {
   //   await page.waitForSelector(".resultContent");

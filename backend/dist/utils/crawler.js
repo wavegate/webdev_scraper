@@ -14,7 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const puppeteer_1 = __importDefault(require("puppeteer"));
 const fs_1 = __importDefault(require("fs"));
-const jsonFile = "db.json";
+const jsonFile = "db2.json";
 let jsonData = [];
 if (!fs_1.default.existsSync(jsonFile)) {
     fs_1.default.writeFileSync(jsonFile, JSON.stringify(jsonData), { encoding: "utf-8" });
@@ -32,7 +32,11 @@ function getVisual() {
         yield page.waitForSelector("#text-input-what");
         yield page.type("#text-input-what", "Web developer");
         yield page.keyboard.press("Escape");
-        yield page.click(".yosegi-InlineWhatWhere-primaryButton");
+        const input = yield page.$("#text-input-where");
+        yield (input === null || input === void 0 ? void 0 : input.click({ clickCount: 3 }));
+        yield page.type("#text-input-where", "Cupertino, CA");
+        yield page.keyboard.press("Enter");
+        // await page.click(".yosegi-InlineWhatWhere-primaryButton");
         let counter = 0;
         while (true) {
             yield page.waitForSelector(".resultContent");
@@ -71,8 +75,8 @@ function getVisual() {
                 link.click();
             });
         }
-        //   await nextPageLink?.click({ delay: 5000 });
-        //   console.log(results);
+        // await nextPageLink?.click({ delay: 5000 });
+        // console.log(results);
         // while (true) {
         //   await page.waitForSelector(".resultContent");
         //   const results = await page.$$(".resultContent");

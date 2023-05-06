@@ -11,7 +11,7 @@ app.use(cookieParser());
 
 app.get("/data", (req: Request, res: Response) => {
   const data = JSON.parse(
-    fs.readFileSync("dist/utils/cut.json", { encoding: "utf-8" })
+    fs.readFileSync("dist/utils/specifics2.json", { encoding: "utf-8" })
   );
   return res.json({ data: data });
 });
